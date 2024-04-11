@@ -1,0 +1,135 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main>
+
+        <div class="hero-area section-bg2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-area">
+                            <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
+                                <div class="hero-caption hero-caption2">
+                                    <h2>Cart</h2>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb justify-content-center">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="#">Cart</a></li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="cart_area">
+            <div class="container">
+                <div class="cart_inner">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in products %}
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="{{ p.product.image.url }}" alt/>
+                                            </div>
+                                            <div class="media-body">
+                                                <p>{{ p.product.name }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>${{ p.product.price_with_discount }}</h5>
+                                    </td>
+                                    <td>
+                                        <div class="product_count">
+                                            <span class="input-number-decrement"> <i class="ti-minus"></i></span>
+                                            <input class="input-number" type="text" value="1" min="0" max="10">
+                                            <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>${{ p.total_cost }}</h5>
+                                    </td>
+                                    <td>
+                                        <form action="/cart/delete/">
+                                            <input type="hidden" name="product_id" value="{{ p.product.id }}">
+                                            <button class="btn" type="submit">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr class="bottom_button">
+                                <td>
+                                    <a class="btn" href="#">Update Cart</a>
+                                </td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5>${{ amount }}</h5>
+                                </td>
+                            </tr>
+                            <tr class="shipping_area">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <h5>Shipping</h5>
+                                </td>
+                                <td>
+                                    <h5>$20</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <h5>Total</h5>
+                                </td>
+                                <td>
+                                    <h5>${{ total_amount }}</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button class="btn">
+                                        Checkout
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+{% endblock %}

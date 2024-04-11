@@ -1,0 +1,182 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main>
+
+        <div class="hero-area section-bg2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-area">
+                            <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
+                                <div class="hero-caption hero-caption2">
+                                    <h2>Blog</h2>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb justify-content-center">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="blog_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mb-5 mb-lg-0">
+                        <div class="blog_left_sidebar">
+                            {% for p in posts %}
+                                <article class="blog_item">
+                                    <div class="blog_item_img">
+                                        <img class="card-img rounded-0" src="{{ p.image.url }}" alt>
+                                        <a href="#" class="blog_item_date">
+                                            <h3>{{ p.created_at.day }}</h3>
+                                            <p>{{ p.created_at.year }}</p>
+                                        </a>
+                                    </div>
+                                    <div class="blog_details">
+                                        <a class="d-inline-block" href="/blog/{{ p.id }}/">
+                                            <h2 class="blog-head" style="color: #2d2d2d;">
+                                                {{ p.title }}
+                                            </h2>
+                                        </a>
+                                        <p>
+                                            {{ p.body|safe }}
+                                        </p>
+                                        <ul class="blog-info-link">
+                                            <li><a href="/blog/{{ p.id }}/"><i class="fa fa-comments"></i> {{ p.total }}
+                                                Comments</a></li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                            <nav class="blog-pagination justify-content-center d-flex">
+                                <ul class="pagination">
+                                    {% if posts.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ posts.previous_page_number }}">Prev</a>
+                                        </li>
+                                    {% endif %}
+                                    {% for page in posts.paginator.page_range %}
+                                        {% if page == posts.number %}
+                                            <li class="page-item active">
+                                                <a class="page-link">{{ page }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item">
+                                                <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if posts.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            <aside class="single_sidebar_widget search_widget">
+                                <form action="#">
+                                    <div class="form-group m-0">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search Keyword">
+                                            <div class="input-group-append d-flex">
+                                                <button class="boxed-btn2" type="button">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </aside>
+                            <aside class="single_sidebar_widget popular_post_widget">
+                                <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
+                                {% for p in recent_posts|slice:":4" %}
+                                    <div class="media post_item">
+                                        <img width="70px" src="{{ p.image.url }}" alt="post">
+                                        <div class="media-body">
+                                            <a href="/blog/{{ p.id }}/">
+                                                <h3 style="color: #2d2d2d;">{{ p.title }}</h3>
+                                            </a>
+                                            <p>{{ p.created_at }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </aside>
+                            <aside class="single_sidebar_widget tag_cloud_widget">
+                                <h4 class="widget_title" style="color: #2d2d2d;">Tag Clouds</h4>
+                                <ul class="list">
+                                    {% for t in tags %}
+                                        <li>
+                                            <a href="/blog/?tag={{ t.id }}">{{ t.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </aside>
+                            <aside class="single_sidebar_widget instagram_feeds">
+                                <h4 class="widget_title" style="color: #2d2d2d;">Instagram Feeds</h4>
+                                <ul class="instagram_row flex-wrap">
+                                    <li>
+                                        <a href="#">
+                                            <img class="img-fluid" src="{% static 'img/post/post_5.jpg' %}" alt>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img class="img-fluid" src="{% static 'img/post/post_6.jpg' %}" alt>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img class="img-fluid" src="{% static 'img/post/post_7.jpg' %}" alt>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img class="img-fluid" src="{% static 'img/post/post_8.jpg' %}" alt>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img class="img-fluid" src="{% static 'img/post/post_9.jpg' %}" alt>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img class="img-fluid" src="{% static 'img/post/post_10.jpg' %}" alt>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </aside>
+                            <aside class="single_sidebar_widget newsletter_widget">
+                                <h4 class="widget_title" style="color: #2d2d2d;">Newsletter</h4>
+                                <form action="#">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" onfocus="this.placeholder = ''"
+                                               onblur="this.placeholder = 'Enter email'" placeholder="Enter email"
+                                               required>
+                                    </div>
+                                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                            type="submit">Subscribe
+                                    </button>
+                                </form>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+{% endblock %}
+

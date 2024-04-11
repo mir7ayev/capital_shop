@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main>
+
+        <div class="hero-area section-bg2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-area">
+                            <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
+                                <div class="hero-caption hero-caption2">
+                                    <h2>Category</h2>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb justify-content-center">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="#">Category</a></li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="listing-area pt-50 pb-50">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="latest-items latest-items2">
+                            <div class="row">
+                                {% for p in products %}
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="properties pb-30">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="/product/{{ p.id }}/"><img src="{{ p.image.url }}"
+                                                                                    alt></a>
+                                                    <div class="socal_icon">
+                                                        <a href="#"><i class="ti-shopping-cart"></i></a>
+                                                        <a href="#"><i class="ti-heart"></i></a>
+                                                        <a href="#"><i class="ti-zoom-in"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="properties-caption properties-caption2">
+                                                    <h3><a href="/product/{{ p.id }}/">{{ p.name }}</a></h3>
+                                                    <div class="properties-footer">
+                                                        <div class="price">
+                                                            <span>${{ p.price_with_discount }} <span>${{ p.price }}</span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}
