@@ -11,11 +11,8 @@ urlpatterns = [
     path('contact/', include('contact.urls')),
     path('auth/', include('authentication.urls')),
 
-    re_path(r'^static/(?P<path>.*)$', serve),
-    re_path(
-            r'^media/(?P<path>.*)$', serve,
-            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}
-        ),
+    re_path(r'static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
 
 if settings.DEBUG:
